@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="69189ad0d02679529c45411aa6b9e954">
+    <title>Adopt Me</title>
+  </head>
+
+  <body>
+    <div id="modal"></div>
+    <div id="root">not rendered</div>
+    <script src="fa4950baf715daf4715ba0e8d5a83886"></script>
+    <script src="7b8e271b5265692ea9d614263b7aab3f"></script>
+    <script src="7756fbd94e5855074b4fe3631ecedb5a"></script>
+  </body>
+</html>

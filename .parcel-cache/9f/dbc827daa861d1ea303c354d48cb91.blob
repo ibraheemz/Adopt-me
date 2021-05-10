@@ -1,0 +1,186 @@
+var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+try {
+  var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+  _parcelHelpers.defineInteropFlag(exports);
+  var _react = require('react');
+  var _reactDefault = _parcelHelpers.interopDefault(_react);
+  var _useDropdown = require('./useDropdown');
+  var _useDropdownDefault = _parcelHelpers.interopDefault(_useDropdown);
+  var _Results = require("./Results");
+  var _ResultsDefault = _parcelHelpers.interopDefault(_Results);
+  var _frontendmastersPet = require("@frontendmasters/pet");
+  var _frontendmastersPetDefault = _parcelHelpers.interopDefault(_frontendmastersPet);
+  var _ThemeContext = require("./ThemeContext");
+  var _ThemeContextDefault = _parcelHelpers.interopDefault(_ThemeContext);
+  var _jsxFileName = "C:\\Users\\ibrahim\\Desktop\\adopt-me\\src\\SearchPrams.js", _s = $RefreshSig$();
+  const SearchPrams = () => {
+    _s();
+    const [location, setLocation] = _react.useState("Seattle, WA");
+    const [breeds, setBreeds] = _react.useState([]);
+    const [pets, setPets] = _react.useState([]);
+    const [animal, AnimalDropdown] = _useDropdownDefault.default("Animal", "dog", _frontendmastersPet.ANIMALS);
+    const [breed, BreedDropdown, setBreed] = _useDropdownDefault.default("Breed", "", breeds);
+    const [theme, setTheme] = _react.useContext(_ThemeContextDefault.default);
+    async function requestPets() {
+      const {animals} = await _frontendmastersPetDefault.default.animals({
+        location,
+        breed,
+        type: animal
+      });
+      setPets(animals || []);
+    }
+    _react.useEffect(() => {
+      setBreeds([]);
+      setBreed("");
+      _frontendmastersPetDefault.default.breeds(animal).then(({breeds: apiBreeds}) => {
+        const breedString = apiBreeds.map(obj => obj.name);
+        setBreeds(breedString);
+      }, console.error);
+    }, [animal, setBreeds, setBreed]);
+    return (
+      /*#__PURE__*/_reactDefault.default.createElement("div", {
+        className: "search-params",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 34,
+          columnNumber: 9
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("form", {
+        onSubmit: e => {
+          e.preventDefault();
+          requestPets();
+        },
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 35,
+          columnNumber: 13
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("label", {
+        htmlFor: "location",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 39,
+          columnNumber: 17
+        }
+      }, "Location", /*#__PURE__*/_reactDefault.default.createElement("input", {
+        value: location,
+        id: "location",
+        placeholder: "Location",
+        onChange: event => setLocation(event.target.value),
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 41,
+          columnNumber: 21
+        }
+      })), /*#__PURE__*/_reactDefault.default.createElement(AnimalDropdown, {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 44,
+          columnNumber: 17
+        }
+      }), /*#__PURE__*/_reactDefault.default.createElement(BreedDropdown, {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 45,
+          columnNumber: 17
+        }
+      }), /*#__PURE__*/_reactDefault.default.createElement("label", {
+        htmlFor: "theme",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 46,
+          columnNumber: 17
+        }
+      }, "Theme", /*#__PURE__*/_reactDefault.default.createElement("select", {
+        value: theme,
+        onChange: e => setTheme(e.target.value),
+        onBlur: e => setTheme(e.target.value),
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 48,
+          columnNumber: 21
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("option", {
+        value: "orange",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 53,
+          columnNumber: 25
+        }
+      }, "default"), /*#__PURE__*/_reactDefault.default.createElement("option", {
+        value: "peru",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 54,
+          columnNumber: 25
+        }
+      }, "Peru"), /*#__PURE__*/_reactDefault.default.createElement("option", {
+        value: "grey",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 55,
+          columnNumber: 25
+        }
+      }, "grey"), /*#__PURE__*/_reactDefault.default.createElement("option", {
+        value: "salmon",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 56,
+          columnNumber: 25
+        }
+      }, "Salmon"), /*#__PURE__*/_reactDefault.default.createElement("option", {
+        value: "maroon",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 57,
+          columnNumber: 25
+        }
+      }, "Maroon"))), /*#__PURE__*/_reactDefault.default.createElement("button", {
+        style: {
+          backgroundColor: theme
+        },
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 60,
+          columnNumber: 17
+        }
+      }, "Submit")), /*#__PURE__*/_reactDefault.default.createElement(_ResultsDefault.default, {
+        pets: pets,
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 64,
+          columnNumber: 13
+        }
+      }))
+    );
+  };
+  _s(SearchPrams, "ndjFubBzlns8Bqg4+6mx2bnktwQ=", false, function () {
+    return [_useDropdownDefault.default, _useDropdownDefault.default];
+  });
+  _c = SearchPrams;
+  exports.default = SearchPrams;
+  var _c;
+  $RefreshReg$(_c, "SearchPrams");
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}

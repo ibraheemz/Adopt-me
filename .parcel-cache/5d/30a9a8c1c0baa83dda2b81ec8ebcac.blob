@@ -1,0 +1,91 @@
+"use strict";
+var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+try {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = DetailsWithErrorBoundary;
+  var _react = _interopRequireDefault(require("react"));
+  var _pet = _interopRequireDefault(require("@frontendmasters/pet"));
+  var _Carousel = _interopRequireDefault(require("./Carousel"));
+  var _ErrorBoundary = _interopRequireDefault(require("./ErrorBoundary"));
+  var _ThemeContext = _interopRequireDefault(require("./ThemeContext"));
+  var _router = require("@reach/router");
+  var _Modal = _interopRequireDefault(require("./Modal"));
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
+  class Details extends _react.default.Component {
+    constructor(...args) {
+      super(...args);
+      this.state = {
+        loading: true,
+        showModal: false
+      };
+      this.toggleModal = () => this.setState({
+        showModal: !this.state.showModal
+      });
+      this.adopt = () => (0, _router.navigate)(this.state.url);
+    }
+    componentDidMount() {
+      _pet.default.animal(this.props.id).then(({animal}) => {
+        const {name, type, contact, description, photos, breeds} = animal;
+        const {address} = contact;
+        this.setState({
+          url: animal.url,
+          name: name,
+          animal: type,
+          location: `${address.city}, ${address.state}`,
+          description: description,
+          media: photos,
+          breed: breeds.primary,
+          loading: false
+        });
+      }, console.error);
+    }
+    render() {
+      if (this.state.loading) {
+        return (
+          /*#__PURE__*/_react.default.createElement("h1", null, "loading ...")
+        );
+      }
+      const {name, animal, location, description, breed, media, showModal} = this.state;
+      return (
+        /*#__PURE__*/_react.default.createElement("div", {
+          className: "details"
+        }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_Carousel.default, {
+          media: media
+        }), /*#__PURE__*/_react.default.createElement("h1", null, name), /*#__PURE__*/_react.default.createElement("h2", null, `${animal} - ${breed} - ${location}`), /*#__PURE__*/_react.default.createElement(_ThemeContext.default.Consumer, null, ([theme]) => /*#__PURE__*/_react.default.createElement("button", {
+          style: {
+            backgroundColor: theme
+          },
+          onClick: this.toggleModal
+        }, "Adopt ", name)), /*#__PURE__*/_react.default.createElement("p", null, description), showModal ? /*#__PURE__*/_react.default.createElement(_Modal.default, null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h1", null, "Would you like to adopt ", name, "?"), /*#__PURE__*/_react.default.createElement("div", {
+          className: "buttons"
+        }, /*#__PURE__*/_react.default.createElement("button", {
+          onClick: this.adopt
+        }, "Yes"), /*#__PURE__*/_react.default.createElement("button", {
+          onClick: this.toggleModal
+        }, "No")))) : null))
+      );
+    }
+  }
+  function DetailsWithErrorBoundary(props) {
+    return (
+      /*#__PURE__*/_react.default.createElement(_ErrorBoundary.default, null, /*#__PURE__*/_react.default.createElement(Details, props))
+    );
+  }
+  _c = DetailsWithErrorBoundary;
+  ;
+  var _c;
+  $RefreshReg$(_c, "DetailsWithErrorBoundary");
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}

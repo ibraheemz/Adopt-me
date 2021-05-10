@@ -1,0 +1,137 @@
+"use strict";
+var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+try {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = void 0;
+  var _react = _interopRequireWildcard(require("react"));
+  var _useDropdown = _interopRequireDefault(require("./useDropdown"));
+  var _Results = _interopRequireDefault(require("./Results"));
+  var _pet = _interopRequireWildcard(require("@frontendmasters/pet"));
+  var _ThemeContext = _interopRequireDefault(require("./ThemeContext"));
+  var _s = $RefreshSig$();
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
+  function _getRequireWildcardCache() {
+    if (typeof WeakMap !== "function") return null;
+    var cache = new WeakMap();
+    _getRequireWildcardCache = function () {
+      return cache;
+    };
+    return cache;
+  }
+  function _interopRequireWildcard(obj) {
+    if (obj && obj.__esModule) {
+      return obj;
+    }
+    if (obj === null || typeof obj !== "object" && typeof obj !== "function") {
+      return {
+        default: obj
+      };
+    }
+    var cache = _getRequireWildcardCache();
+    if (cache && cache.has(obj)) {
+      return cache.get(obj);
+    }
+    var newObj = {};
+    var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;
+    for (var key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;
+        if (desc && (desc.get || desc.set)) {
+          Object.defineProperty(newObj, key, desc);
+        } else {
+          newObj[key] = obj[key];
+        }
+      }
+    }
+    newObj.default = obj;
+    if (cache) {
+      cache.set(obj, newObj);
+    }
+    return newObj;
+  }
+  const SearchPrams = () => {
+    _s();
+    const [location, setLocation] = (0, _react.useState)("Seattle, WA");
+    const [breeds, setBreeds] = (0, _react.useState)([]);
+    const [pets, setPets] = (0, _react.useState)([]);
+    const [animal, AnimalDropdown] = (0, _useDropdown.default)("Animal", "dog", _pet.ANIMALS);
+    const [breed, BreedDropdown, setBreed] = (0, _useDropdown.default)("Breed", "", breeds);
+    const [theme, setTheme] = (0, _react.useContext)(_ThemeContext.default);
+    async function requestPets() {
+      const {animals} = await _pet.default.animals({
+        location,
+        breed,
+        type: animal
+      });
+      setPets(animals || []);
+    }
+    (0, _react.useEffect)(() => {
+      setBreeds([]);
+      setBreed("");
+      _pet.default.breeds(animal).then(({breeds: apiBreeds}) => {
+        const breedString = apiBreeds.map(obj => obj.name);
+        setBreeds(breedString);
+      }, console.error);
+    }, [animal, setBreeds, setBreed]);
+    return (
+      /*#__PURE__*/_react.default.createElement("div", {
+        className: "search-params"
+      }, /*#__PURE__*/_react.default.createElement("form", {
+        onSubmit: e => {
+          e.preventDefault();
+          requestPets();
+        }
+      }, /*#__PURE__*/_react.default.createElement("label", {
+        htmlFor: "location"
+      }, "Location", /*#__PURE__*/_react.default.createElement("input", {
+        value: location,
+        id: "location",
+        placeholder: "Location",
+        onChange: event => setLocation(event.target.value)
+      })), /*#__PURE__*/_react.default.createElement(AnimalDropdown, null), /*#__PURE__*/_react.default.createElement(BreedDropdown, null), /*#__PURE__*/_react.default.createElement("label", {
+        htmlFor: "theme"
+      }, "Theme", /*#__PURE__*/_react.default.createElement("select", {
+        value: theme,
+        onChange: e => setTheme(e.target.value),
+        onBlur: e => setTheme(e.target.value)
+      }, /*#__PURE__*/_react.default.createElement("option", {
+        value: "orange"
+      }, "default"), /*#__PURE__*/_react.default.createElement("option", {
+        value: "peru"
+      }, "Peru"), /*#__PURE__*/_react.default.createElement("option", {
+        value: "grey"
+      }, "grey"), /*#__PURE__*/_react.default.createElement("option", {
+        value: "salmon"
+      }, "Salmon"), /*#__PURE__*/_react.default.createElement("option", {
+        value: "maroon"
+      }, "Maroon"))), /*#__PURE__*/_react.default.createElement("button", {
+        style: {
+          backgroundColor: theme
+        }
+      }, "Submit")), /*#__PURE__*/_react.default.createElement(_Results.default, {
+        pets: pets
+      }))
+    );
+  };
+  _s(SearchPrams, "ndjFubBzlns8Bqg4+6mx2bnktwQ=", false, function () {
+    return [_useDropdown.default, _useDropdown.default];
+  });
+  _c = SearchPrams;
+  var _default = SearchPrams;
+  exports.default = _default;
+  var _c;
+  $RefreshReg$(_c, "SearchPrams");
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
